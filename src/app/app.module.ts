@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { PostComponent } from './post/post.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { JwtInterceptor } from './auth/jwt.interceptor';
+import { HttpErrorInterceptor } from './auth/http-error.interceptor';
 
 @NgModule({
   declarations: [AppComponent, PostComponent, LoginComponent],
@@ -15,6 +17,11 @@ import { JwtInterceptor } from './auth/jwt.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true
     }
   ],
